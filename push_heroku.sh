@@ -4,6 +4,6 @@ pip freeze > requirements.txt
 # git remote -v 
 # pip install gunicorn
 git add .
-git commit -m "version 0.1.1"
+git commit -m "version 0.2"
 git push origin master
-git push heroku master
+# git push heroku master
