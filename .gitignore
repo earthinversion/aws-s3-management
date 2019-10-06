@@ -1,3 +1,5 @@
 __pycache__/*
 test_photos/*
-.env/*
+.env
+.gitignore
+push_heroku.sh
