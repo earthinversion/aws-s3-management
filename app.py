@@ -40,7 +40,6 @@ def upload():
         pass_word = request.form['pass_word']
 
     if user_name=="utpalkumar" and pass_word == "utpal123":
-        flash('Uploading File...')
         my_bucket.Object(file.filename).put(Body=file)
         flash('File uploaded successfully')
     else:
@@ -52,9 +51,8 @@ def delete():
     key = request.form['key']
     my_bucket= aws_bucket_info()
     if key:
-        flash(f'Deleting file {key}, Please wait!')
         my_bucket.Object(key).delete()
-        flash('File deleted successfully')
+        flash('{key} deleted successfully')
     return redirect(url_for('data'))
 
 @app.route('/download', methods = ['POST'])
@@ -62,7 +60,6 @@ def download():
     key = request.form['key']
     my_bucket= aws_bucket_info()
     if key:
-        flash(f'Downloading file {key}')
         file_obj = my_bucket.Object(key).get()
         flash(f'{key} downloaded successfully')
     return Response(
