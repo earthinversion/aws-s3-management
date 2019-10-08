@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12-xs">
-            <h3>Bucket Info</h3>
+            <h3>Bucket Contents</h3>
             <p>Created: {{ my_bucket.creation_date | datetimeformat }}</p>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
@@ -19,10 +19,14 @@
             {% endwith %}
             <hr>
 
+
             <form action="/upload" class="upload-form" method="POST" enctype="multipart/form-data">
+                <input title="Username" placeholder="Username" type="text" name="user_name" required><br>
+                <input title="Password" placeholder="Password" type="text" name="pass_word" required><br>
                 <p><input type="file" name="file"> </p>
                 <button type="submit" name="submit" class="btn btn-primary">Upload</button>
             </form>
+            <hr>
 
             
 

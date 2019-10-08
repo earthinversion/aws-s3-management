@@ -34,12 +34,17 @@ def data():
 @app.route('/upload', methods = ['POST'])
 def upload():
     file = request.files['file']
-
     my_bucket= aws_bucket_info()
-    if file:
+    if request.method=='POST':
+        user_name = request.form['user_name']
+        pass_word = request.form['pass_word']
+
+    if user_name=="utpalkumar" and pass_word == "utpal123":
         flash('Uploading File...')
         my_bucket.Object(file.filename).put(Body=file)
         flash('File uploaded successfully')
+    else:
+        flash('Invalid Credentials\nPlease try again later!')
     return redirect(url_for('data'))
 
 @app.route('/delete', methods = ['POST'])
@@ -59,7 +64,7 @@ def download():
     if key:
         flash(f'Downloading file {key}')
         file_obj = my_bucket.Object(key).get()
-        flash(f'File {key} downloaded successfully')
+        flash(f'{key} downloaded successfully')
     return Response(
         file_obj['Body'].read(),
         mimetype = 'text/plain',
