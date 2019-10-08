@@ -11,9 +11,15 @@
     transition: all 0.2s ease-in-out;
 }
 
-.nav .navbar-nav {
+.nav .navbar-nav li a{
+    font-size: 1rem;
     display: block;
     color: #000;
     padding: 8px 16px;
     text-decoration: none;
+}
+
+.nav .navbar-nav li a:hover {
+    background-color: #555;
+    color: white;
 }
