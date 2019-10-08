@@ -36,24 +36,30 @@ def upload():
     file = request.files['file']
 
     my_bucket= aws_bucket_info()
-    my_bucket.Object(file.filename).put(Body=file)
-    flash('File uploaded successfully')
+    if file:
+        flash('Uploading File...')
+        my_bucket.Object(file.filename).put(Body=file)
+        flash('File uploaded successfully')
     return redirect(url_for('data'))
 
 @app.route('/delete', methods = ['POST'])
 def delete():
     key = request.form['key']
     my_bucket= aws_bucket_info()
-    my_bucket.Object(key).delete()
-    flash('File deleted successfully')
+    if key:
+        flash(f'Deleting file {key}, Please wait!')
+        my_bucket.Object(key).delete()
+        flash('File deleted successfully')
     return redirect(url_for('data'))
 
 @app.route('/download', methods = ['POST'])
 def download():
     key = request.form['key']
     my_bucket= aws_bucket_info()
-    file_obj = my_bucket.Object(key).get()
-
+    if key:
+        flash(f'Downloading file {key}')
+        file_obj = my_bucket.Object(key).get()
+        flash(f'File {key} downloaded successfully')
     return Response(
         file_obj['Body'].read(),
         mimetype = 'text/plain',
